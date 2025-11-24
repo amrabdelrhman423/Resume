@@ -1,387 +1,179 @@
+document.addEventListener('DOMContentLoaded', function () {
+    // --- Color Switcher ---
+    const root = document.documentElement;
+    const savedColor = localStorage.getItem("color") || "rgb(255, 165, 0)"; // Default orange
 
-$(document).ready(function () {
-
-    // get color from local storage 
-    var color;
-    if (localStorage.getItem("color") == null) {
-        // if this is the firist time (local storage does not exist)
-        color = "rgb(255, 165, 0)"; // default color 
-    }
-    else {
-
-        color = localStorage.getItem("color");
-        // apply color on all elements
-        $('.navbar-brand').css('border-color', color);
-
-        $('.shape').css('background-color', color);
-        $('.img-border img').css('border-color', color);
-        $('.tags ul li span').css('border-color', color);
-        $('.about .cv-link').css('border-color', color);
-        $('.edu-year').css('color', color);
-        $('.contact-icon').css('border-color', color);
-        $('.floating-buttom a').css('background-color', color);
-        $('.navbar-brand').css('border-color', color);
-        $('.list-page li p').css('border-color', color);
-        $('.active-page').css('background-color', color);
-
-
-        $('.navbar-dark .navbar-nav .nav-link').hover(function () {
-            // over
-            $(this).css('color', color);
-        }, function () {
-            // out
-            $(this).css('color', 'rgb(226, 225, 225)')
-        }
-        );
-        $('ul li p').hover(function () {
-            // over
-            $(this).css('color', color);
-
-        }, function () {
-            // out
-            $(this).css('color', 'rgb(226, 225, 225)')
-        }
-        );
-        $('.social li a').hover(function () {
-            // over
-            $(this).css('color', color);
-
-        }, function () {
-            // out
-            $(this).css('color', 'rgb(226, 225, 225)')
-        }
-        );
-        $('.about .cv-link').hover(function () {
-            // over
-            $(this).css('color', color);
-
-        }, function () {
-            // out
-            $(this).css('color', 'rgb(226, 225, 225)')
-        }
-        );
-        $('.github a').hover(function () {
-            // over
-            $(this).css('color', color);
-
-        }, function () {
-            // out
-            $(this).css('color', 'rgb(226, 225, 225)')
-        }
-        );
-        $(".page").not('.active-page').hover(function () {
-            // over
-            $(this).css("background-color", color);
-            $(this).css("color", "#fff");
-
-        }, function () {
-            // out
-            $(this).css("background-color", "transparent");
-            $(this).css("color", "#fff");
-        }
-        );
-
-
-    }
-
-
-
-    $(".sidebar span").click(function () {
-
-
-        var bgColor = $(this).attr('class');
-        var str = bgColor.split(" ");
-
-        color = $("." + str[1]).css('background-color');
-
+    // Function to set theme color
+    function setThemeColor(color) {
+        root.style.setProperty('--main-color', color);
         localStorage.setItem("color", color);
-        // apply color on all elements
-        $('.navbar-brand').css('border-color', color);
-
-        $('.shape').css('background-color', color);
-        $('.img-border img').css('border-color', color);
-        $('.tags ul li span').css('border-color', color);
-        $('.about .cv-link').css('border-color', color);
-        $('.edu-year').css('color', color);
-        $('.contact-icon').css('border-color', color);
-        $('.floating-buttom a').css('background-color', color);
-        $('.navbar-brand').css('border-color', color);
-        $('.list-page li p').css('border-color', color);
-        $('.active-page').css('background-color', color);
-
-
-    });
-
-    $('.navbar-dark .navbar-nav .nav-link').hover(function () {
-        // over
-        $(this).css('color', color);
-    }, function () {
-        // out
-        $(this).css('color', 'rgb(226, 225, 225)')
     }
-    );
 
-    $('.social li a').hover(function () {
-        // over
-        $(this).css('color', color);
+    // Apply saved color on load
+    setThemeColor(savedColor);
 
-    }, function () {
-        // out
-        $(this).css('color', 'rgb(226, 225, 225)')
-    }
-    );
-    $('.about .cv-link').hover(function () {
-        // over
-        $(this).css('color', color);
-
-    }, function () {
-        // out
-        $(this).css('color', 'rgb(226, 225, 225)')
-    }
-    );
-    $('.github a').hover(function () {
-        // over
-        $(this).css('color', color);
-
-    }, function () {
-        // out
-        $(this).css('color', 'rgb(226, 225, 225)')
-    }
-    );
-
-
-
-
-
-
-    $('#view').hide();
-    $('#view-card').hide();
-    $('.floating-buttom').hide();
-
-    $('.Certificate .cert-item .position-relative').click(function (e) {
-        e.preventDefault();
-        var image = $(this).find('img');
-        var src = $(image).attr('src');
-
-        $('#preview').attr('src', src);
-        // $('#view').show();
-        $('#view').show(0, function () {
-
-            $('#view-card').show(0, function () {
-                $('.block').css('transform', 'translateY(70px)');
-                $('body').css('overflow', 'hidden');
-
-            });
-
-
+    // Sidebar Color Click Event
+    const colorCircles = document.querySelectorAll(".sidebar span");
+    colorCircles.forEach(circle => {
+        circle.addEventListener("click", function () {
+            // Get background color of the clicked circle
+            const computedStyle = window.getComputedStyle(this);
+            const color = computedStyle.backgroundColor;
+            setThemeColor(color);
         });
-
-
-
-
-    });
-    $('#times').click(function () {
-
-
-        $('.block').css('transform', 'translateY(-70px)');
-        $('#view').hide(0, function () {
-            $('body').css('overflow', 'visible');
-
-        });
-
-
-
-
     });
 
+    // --- Sidebar Toggle ---
+    const sidebarContainer = document.querySelector(".sidebar-container");
+    const settingBtn = document.querySelector(".setting");
+    const sidebar = document.querySelector("#sidebar");
 
+    // Initialize sidebar position
+    let sidebarWidth = sidebar.offsetWidth;
+    sidebarContainer.style.left = `-${sidebarWidth}px`;
+    settingBtn.style.left = `-${sidebarWidth}px`; // Wait, settingBtn is inside sidebar-container?
+    // In original code: $(".setting").css("left", `-${sidebarWidth}px`);
+    // But looking at HTML, .setting is a sibling of .sidebar inside .sidebar-container.
+    // Let's stick to the logic: animate .sidebar-container left property.
 
-    //sidebar
-    // width of sidebar
-    let sidebarWidth = $("#sidebar").innerWidth();
+    // Actually, looking at CSS, .sidebar-container is fixed.
+    // Let's adjust the logic to match original behavior but cleaner.
+    // Original: $(".sidebar-container").css("left", `-${sidebarWidth}px`);
 
-    // close the sidebar
-    $(".sidebar-container").css("left", `-${sidebarWidth}px`);
-    $(".setting").css("left", `-${sidebarWidth}px`);
-
-    // when sidebar cliked
-    $('.setting').click(function () {
-
-
-        let sidebarLeftProperty = $(".sidebar-container").css("left");
-
-        if (sidebarLeftProperty == "0px") {
-
-            // if sidebar menu opend then close 
-            $(".sidebar-container").animate({ left: `-${sidebarWidth}px` }, 500);
-        }
-        else {
-            // if close then open it 
-            $(".sidebar-container").animate({ left: `0px` }, 500);
-
-        }
-
-    });
-    //  navbar  menu
-    $(window).scroll(function () {
-        if ($(window).scrollTop() > 80) {
-
-            $('#floating').show(500);
-            $("#nav").removeClass('bg-transparent'); //.css('background-color','#202026');
-            document.getElementById("nav").style.backgroundColor = "#202026";
-
-
-        }
-        else {
-            $('#floating').hide(500);
-            $("#nav").addClass('bg-transparent');
-
-
-        }
-
-    });
-
-    //$("#imgdesc , .heading , .search-icon").hide();
-    $('.imgdesc').hover(function () {
-
-
-        //  $(this).css('background-color', "#09c");
-        // over
-        $(this).animate({
-            opacity: 0.6,
-
-        }, 10, function () {
-
-            $(this).css('background-color', color);
-            $(this).find(".heading , .search-icon ").css('opacity', 1);
-            $(this).find('.heading , .search-icon').css("transform", "translateX(0px)");
-        });
-
-
-    }, function () {
-        // out
-        $(this).animate({
-            opacity: 0.6,
-
-        }, 10, function () {
-
-            $(this).css('background-color', "transparent");
-            $(this).find(".heading , .search-icon ").css('opacity', 0);
-            $(this).find('.heading').css("transform", "translateX(100px)");
-            $(this).find('.search-icon').css("transform", "translateX(-100px)");
-        });
-
-
+    function closeSidebar() {
+        sidebarContainer.style.left = `-${sidebarWidth}px`;
     }
 
-    );
+    function openSidebar() {
+        sidebarContainer.style.left = "0px";
+    }
 
-    // Select all links with hashes
-    $('nav a[href*="#"] , #floating a[href*="#"]')
-        // Remove links that don't actually link to anything
-        .not('[href="#"]')
-        .not('[href="#0"]')
-        .click(function (event) {
+    // Initial close
+    closeSidebar();
 
-            // On-page links
-            if (
-                location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '')
-                &&
-                location.hostname == this.hostname
-            ) {
-                // Figure out element to scroll to
-                var target = $(this.hash);
-                target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
-                // Does a scroll target exist?
-                if (target.length) {
-                    // Only prevent default if animation is actually gonna happen
-                    event.preventDefault();
-                    $('html, body').animate({
-                        scrollTop: target.offset().top - 50
-                    }, 1000);
-                }
+    settingBtn.addEventListener("click", function () {
+        const currentLeft = window.getComputedStyle(sidebarContainer).left;
+        if (currentLeft === "0px") {
+            closeSidebar();
+        } else {
+            openSidebar();
+        }
+    });
+
+    // --- Navbar Scroll Effect ---
+    const navbar = document.querySelector("#nav");
+    const floatingBtn = document.querySelector('#floating');
+
+    // Initial state
+    if (window.scrollY <= 80) {
+        floatingBtn.style.display = 'none';
+    }
+
+    window.addEventListener("scroll", function () {
+        if (window.scrollY > 80) {
+            // Show floating button
+            floatingBtn.style.display = 'block';
+            // Change navbar background
+            navbar.classList.remove('bg-transparent');
+            navbar.style.backgroundColor = "#202026";
+        } else {
+            // Hide floating button
+            floatingBtn.style.display = 'none';
+            // Reset navbar background
+            navbar.classList.add('bg-transparent');
+            navbar.style.backgroundColor = "transparent";
+        }
+    });
+
+    // --- Lightbox (Image View) ---
+    const viewSection = document.getElementById('view');
+    const viewCard = document.getElementById('view-card');
+    const previewImg = document.getElementById('preview');
+    const closeBtn = document.getElementById('times');
+    const certItems = document.querySelectorAll('.Certificate .cert-item .position-relative');
+    const block = document.querySelector('.block');
+
+    // Hide initially
+    viewSection.style.display = 'none';
+    viewCard.style.display = 'none';
+
+    certItems.forEach(item => {
+        item.addEventListener('click', function (e) {
+            e.preventDefault();
+            const img = this.querySelector('img');
+            const src = img.getAttribute('src');
+
+            previewImg.setAttribute('src', src);
+            viewSection.style.display = 'block';
+            viewCard.style.display = 'block';
+
+            // Animation simulation
+            setTimeout(() => {
+                block.style.transform = 'translateY(70px)';
+                document.body.style.overflow = 'hidden';
+            }, 10);
+        });
+    });
+
+    closeBtn.addEventListener('click', function () {
+        block.style.transform = 'translateY(-70px)';
+        setTimeout(() => {
+            viewSection.style.display = 'none';
+            document.body.style.overflow = 'visible'; // Changed from 'auto' to match original 'visible' or 'auto'
+        }, 300); // Wait for transition
+    });
+
+    // --- Pagination / Filtering (MixItUp) ---
+    // Initialize MixItUp
+    // We use 'load' option to start with '.one' filter as per original logic ($(".two").hide())
+    if (document.querySelector('#mixit')) {
+        var mixer = mixitup('#mixit', {
+            selectors: {
+                target: '.mix' // The items to filter
+            },
+            load: {
+                filter: '.one' // Initial filter
+            },
+            animation: {
+                duration: 300
             }
         });
+    }
 
-    // handeling active page 
-    $(document).on("click", ".list-page li p", function (e) {
-
-
-        // apply to the clicked element background-color 
-        $(this).css("background-color", color).addClass("active-page");
-        // remove background-color from the other element     
-        $(this).parent().siblings().find('p').css("background-color", "transparent").removeClass("active-page");
-
+    // Handle Active Page Class
+    const pageButtons = document.querySelectorAll(".list-page li p");
+    pageButtons.forEach(btn => {
+        btn.addEventListener("click", function () {
+            // Remove active class from all
+            pageButtons.forEach(b => b.classList.remove("active-page"));
+            // Add active class to clicked
+            this.classList.add("active-page");
+        });
     });
-   
-    
-    // project section pages 
-    $(".two").hide();
-    var mixer = mixitup('#mixit');
-    var mixer = mixitup(containerEl);
 
-     
-    var mixer = mixitup('#mixit', {
-        selectors: {
-            target: '.blog-item'
-        },
-        animation: {
-            duration: 300
-        }
-    });
-    
-    
+    // --- Scroll Reveal ---
+    if (typeof ScrollReveal !== 'undefined') {
+        const sr = ScrollReveal({
+            distance: '30px',
+            duration: 1500,
+        });
 
+        sr.reveal('.tags ul li', { origin: 'bottom', interval: 100, duration: 800 });
+        sr.reveal('.cert-item ,#certificate h2 ', { origin: 'bottom', interval: 200 });
+        sr.reveal('.edu-details, .break-line, .about-me h2, .about-me p, .about-content .col-md-12, .edu-left h2, .exp-right h2, #contact h2, #projects h2', { origin: 'bottom', interval: 200 });
+        sr.reveal('.contact-content , .contact .row .col-md-9 p , .about-img', { origin: 'left', interval: 200 });
+        sr.reveal('.contact-map , .contact .row .col-md-9 ul ', { origin: 'right', interval: 200 });
+    }
 
-
+    // --- Loading Screen ---
+    const loadingScreen = document.getElementById("loading");
+    if (loadingScreen) {
+        // Fade out
+        loadingScreen.style.transition = "opacity 1s";
+        loadingScreen.style.opacity = "0";
+        setTimeout(() => {
+            loadingScreen.style.display = "none";
+            document.body.style.overflow = "auto";
+        }, 1000);
+    }
 });
-
- 
-
-// Scroll Reveal 
-let _scrollReveal = function () {
-    // set common reveal properties on all alement 
-    let SR = ScrollReveal({
-        distance: '30px',
-        duration: 1500,
-
-
-    });
-
-
-    // apply animation on element by selecting classes or ids
-
-    ScrollReveal().reveal('.tags ul li', { origin: 'bottom', interval: 100, duration: 800, distance: '30px' });
-
-    SR.reveal('.cert-item ,#certificate h2 ', { origin: 'bottom', interval: 200 })
-    SR.reveal(
-        `  .edu-details,
-           .break-line ,
-            .about-me h2 , 
-            .about-me p ,
-             .about-content .col-md-12 ,
-             edu-left h2 , exp-right h2 ,
-             #contact h2 , #projects h2
-         `,
-        { origin: 'bottom', interval: 200 });
-
-    SR.reveal('.contact-content , .contact .row .col-md-9 p , .about-img', { origin: 'left', interval: 200 });
-    SR.reveal('.contact-map , .contact .row .col-md-9 ul ', { origin: 'right', interval: 200 });
-
-
-    // SR.reveal(".edu-details" , {origin: 'bottom', interval: 200 });
-
-
-}
-_scrollReveal();
-
-$(document).ready(function(){
-
-    // close loading screen
-     
-    $("#loading").fadeOut(1000 ,function () {
-        $("body").css("overflow","auto");
-    
-      });
-    
-  });
