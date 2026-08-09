@@ -60,5 +60,5 @@ Systems.
 - **Phone:** +20 100 114 6532
 - **Location:** Cairo, Egypt
 - **GitHub:** [amrabdelrhman423](https://github.com/amrabdelrhman423)
-- **LinkedIn:** [amr-abdelrhman](https://www.linkedin.com/in/amr-abdelrhman)
+- **LinkedIn:** [amr-abdelrhman](https://www.linkedin.com/in/amr-abdelrhman-7891aa17b/)
 - **Website:** [amrabdelrhman423.github.io/Resume](https://amrabdelrhman423.github.io/Resume)
