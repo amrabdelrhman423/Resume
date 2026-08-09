@@ -1,60 +1,64 @@
 # Amr Abdelrahman - Portfolio
 
-This repository contains the personal portfolio website of **Amr Abdelrahman**, a Software Engineer and Mobile Developer.
+This repository contains the personal portfolio website of **Amr Abdelrahman**, a Senior Mobile Application Engineer.
 
-## About Me
+## Professional Summary
 
-Hello, I’m a Software Engineer with a Bachelor of Computer Science from Mansoura University.
-I’m focused mainly on Flutter Development with a background in Java for Android.
-I’m a Flutter-Experienced Programmer with an extensive history of designing and coding solutions.
+Senior Mobile Application Engineer with 5+ years of experience specializing in high-performance
+cross-platform development using Flutter and Dart, complemented by strong native Android (Kotlin/Java)
+and iOS (Swift) expertise. Proven track record in designing scalable mobile architectures using Clean
+Architecture, SOLID principles, and advanced state management (BLoC/Cubit, RxDart). Demonstrated
+success in engineering secure, large-scale applications across fintech, Web3, and EdTech domains,
+with a focus on performance optimization, robust CI/CD pipelines, and establishing scalable Design
+Systems.
 
-- **Familiar with all modern architectures** (MVC, MVVM, BloC, etc.) and knowledgeable in OOP and functional paradigms.
-- **Experienced** Front-End and Back-End Flutter Development for Android & iOS Applications.
-- **Experience with Databases** (relational like SQLite).
-- **Experience with Firebase** (Google Maps, Firestore, etc.).
-- **Experience working with and creating scalable Restful APIs** (Facebook, Twitter, etc.).
-- **Knowledgeable in Artificial Intelligence** (ML/DL).
+## Technical Core Competencies
+- **Languages:** Dart, Kotlin, Java, Swift
+- **Frameworks & Platforms:** Flutter, Android SDK, iOS SDK
+- **Architecture & Design:** Mobile System Design, Clean Architecture, SOLID, Repository Pattern, Design Systems
+- **Software Methodologies:** Test-Driven Development (TDD), Domain-Driven Design (DDD), Specification-Driven Development (SDD), Agile/Scrum
+- **State Management:** BLoC / Cubit, RxDart, Provider, GetX
+- **Backend & Cloud:** REST APIs, WebSockets, Firebase, FCM, APNs, Push Notifications
+- **Storage & Security:** Secure Storage (KeyStore/Keychain), SQLCipher, Web3 Integrations
+- **DevOps & Tools:** CI/CD Pipelines, GitHub Actions, Dependency Injection (GetIt), Git Flow
 
-## Skills
-- **Languages:** Java, Dart, C#, C++, Swift, JavaScript, HTML5, CSS3, JSON, XML
-- **Mobile Development:** Flutter, Android, iOS, Android Studio, Xcode
-- **Frameworks & Libraries:** ASP.NET, Entity Framework, LINQ, MVC, Node.js, jQuery, Bootstrap 4, Ajax
-- **Concepts:** OOP, Data Structures, Algorithms, Design Patterns
-- **Databases:** Microsoft SQL Server
-- **Tools:** Visual Studio, Visual Studio Code, Git, GitHub
+## Professional Experience
 
-## Experience
+* **Senior Mobile Application Developer at Systel Telecom (Digital Secure Systems)** (2022 - Present)
+  * Architected and developed core modules for a high-security, large-scale digital banking application using Flutter, implementing Clean Architecture for improved maintainability and testing.
+  * Spearheaded a Design System initiative, engineering a modular UI component library that accelerated cross-functional feature delivery timelines by 30%.
+  * Optimized application state and reactive data flow using BLoC/Cubit and RxDart, ensuring fluid UI performance and efficient handling of high-frequency data payloads.
+  * Drove high engineering standards by enforcing SOLID principles, dependency injection, and comprehensive Test-Driven Development (TDD), significantly reducing production defects.
+  * Implemented automated CI/CD workflows using GitHub Actions to streamline testing and deployment processes across iOS and Android platforms.
+* **Mobile Application Developer at RepoTec** (2021 - 2022)
+  * Delivered production-ready Android and iOS applications tailored for complex laboratory tracking and reporting workflows, meeting stringent client requirements.
+  * Engineered high-performance networking layers integrating with secure REST APIs using Dio and custom interceptors, improving data fetch reliability and error handling.
+  * Translated complex Figma UI/UX designs into pixel-perfect, highly responsive layouts with smooth animations, enhancing overall user engagement.
+* **Flutter Developer at Fritill (Part-Time / Contract)** (2020)
+  * Accelerated MVP development for cross-platform startup products, establishing scalable foundations using Provider and GetX state management.
+  * Facilitated successful platform migrations and implemented reliable offline data caching strategies, significantly improving user experience in low-connectivity environments.
 
-* **Mobile Developer at Systel Telecom** (Oct 2022 - present)
-  * Working in the Digital Secure Systems in Systel Telecom, building their mobile application, a large scale banking application, participating in the main digital transformation team, and building the design system for the application in general.
-* **Mobile Developer at Repoteq** (Jan 2021 - Oct 2022)
-  * Working as a flutter developer to develop Mobile Apps.
-* **Graduation Project - Be Fit App** (Jan 2020 - Jul 2020)
-  * Team lead, designed UI/UX, created Database with Firebase, developed UI, and designed and implemented CI/CD.
-* **Graduation Project - Telepresence using AugmentedReality** (Sep 2019 - Jul 2020)
-  * Design and implementation of the IOT, and design and deployment of AR Environment.
+## Education & Training
 
-## Education
+* **Intensive Cross-Platform Development Track** - Information Technology Institute (ITI) (2020 - 2021)
+  * Focused on deep mobile software engineering principles, advanced state management patterns, and multi-platform native integrations.
+* **Bachelor’s Degree in Computer Science** - Mansoura University, Giza, Egypt (2016 - 2020)
+  * Relevant Coursework: Software Engineering, Data Structures, Algorithms, Database Management Systems.
 
-* **Front End && Cross Platform Mobile Diploma** - ITI (Dec 2020)
-* **Computer Science** - Mansoura University in Egypt (2016 - 2020)
-  * Major: Computer Science
-  * Grade: Good
-  * Graduation Project: Excellent
-
-## Projects
+## Selected Technical Projects
+- **TravMed – Medical Travel Hub:** Developed a medical tourism gateway connecting international patients with providers, featuring real-time communications via WebSockets and secure scheduling.
+- **Flip – Decentralized Web3 & Digital Banking:** Built a robust decentralized finance (DeFi) application for secure asset transactions, applying deep state management principles for flawless transaction handling. Integrated Web3 protocols, digital wallet creation, and secured local encrypted databases (SQLCipher/KeyStore).
+- **ALMO – English E-Learning Application:** Engineered an interactive language platform integrating advanced Speech-to-Text (STT) and Text-to-Speech (TTS) modules for real-time pronunciation assessment. Developed a comprehensive examination module tracking user proficiency with sophisticated local state management.
+- **Muslim Book – Global Islamic Utility:** Scaled architecture to support over 1 million active global users, optimizing background resource utilization and reducing battery consumption by 15%. Implemented advanced background task mapping and complex location-based geometric calculations.
 - **Covid-19EG in Egypt:** Mobile Application to help know the Covid-19 counter in Egypt and the world.
-- **مفروشات المحلة:** Application to display furnishings.
-- **Red Chat App (Realtime):** Chat App using Firebase Realtime Database.
-- **Muslim book:** An Islamic application for prayer times and Qibla direction, used by over 1 million Muslims.
 - **Green Hills Pharmacy:** Pharmacy app in Abu Dhabi.
 - **Targemly:** App for human translation.
-- **Almo:** Language learning app with conversation and grammar basics.
 - **Number Trivia App:** Clean Architecture and TDD Approach app.
 
 ## Contact
 - **Email:** amrmedo432@gmail.com
-- **Phone:** +20 128 081 6239 / +20 100 114 6532
+- **Phone:** +20 100 114 6532
 - **Location:** Cairo, Egypt
 - **GitHub:** [amrabdelrhman423](https://github.com/amrabdelrhman423)
-- **LinkedIn:** [Amr Abdelrhman](https://www.linkedin.com/in/amr-abdelrhman-7891aa17b/)
+- **LinkedIn:** [amr-abdelrhman](https://www.linkedin.com/in/amr-abdelrhman)
+- **Website:** [amrabdelrhman423.github.io/Resume](https://amrabdelrhman423.github.io/Resume)
