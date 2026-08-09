@@ -1,179 +1,121 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // --- Color Switcher ---
-    const root = document.documentElement;
-    const savedColor = localStorage.getItem("color") || "rgb(255, 165, 0)"; // Default orange
+    // --- Scroll Progress Bar ---
+    const scrollProgress = document.getElementById('scrollProgress');
+    const navbar = document.querySelector('.navbar-custom');
+    const floatingBtn = document.querySelector('.floating-top-btn');
 
-    // Function to set theme color
-    function setThemeColor(color) {
-        root.style.setProperty('--main-color', color);
-        localStorage.setItem("color", color);
-    }
+    window.addEventListener('scroll', function () {
+        // Calculate scroll progress percentage
+        const scrollTop = window.scrollY || document.documentElement.scrollTop;
+        const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const progressPercentage = (scrollTop / scrollHeight) * 100;
 
-    // Apply saved color on load
-    setThemeColor(savedColor);
+        if (scrollProgress) {
+            scrollProgress.style.width = `${progressPercentage}%`;
+        }
 
-    // Sidebar Color Click Event
-    const colorCircles = document.querySelectorAll(".sidebar span");
-    colorCircles.forEach(circle => {
-        circle.addEventListener("click", function () {
-            // Get background color of the clicked circle
-            const computedStyle = window.getComputedStyle(this);
-            const color = computedStyle.backgroundColor;
-            setThemeColor(color);
-        });
-    });
-
-    // --- Sidebar Toggle ---
-    const sidebarContainer = document.querySelector(".sidebar-container");
-    const settingBtn = document.querySelector(".setting");
-    const sidebar = document.querySelector("#sidebar");
-
-    // Initialize sidebar position
-    let sidebarWidth = sidebar.offsetWidth;
-    sidebarContainer.style.left = `-${sidebarWidth}px`;
-    settingBtn.style.left = `-${sidebarWidth}px`; // Wait, settingBtn is inside sidebar-container?
-    // In original code: $(".setting").css("left", `-${sidebarWidth}px`);
-    // But looking at HTML, .setting is a sibling of .sidebar inside .sidebar-container.
-    // Let's stick to the logic: animate .sidebar-container left property.
-
-    // Actually, looking at CSS, .sidebar-container is fixed.
-    // Let's adjust the logic to match original behavior but cleaner.
-    // Original: $(".sidebar-container").css("left", `-${sidebarWidth}px`);
-
-    function closeSidebar() {
-        sidebarContainer.style.left = `-${sidebarWidth}px`;
-    }
-
-    function openSidebar() {
-        sidebarContainer.style.left = "0px";
-    }
-
-    // Initial close
-    closeSidebar();
-
-    settingBtn.addEventListener("click", function () {
-        const currentLeft = window.getComputedStyle(sidebarContainer).left;
-        if (currentLeft === "0px") {
-            closeSidebar();
+        // Navbar scrolled state & back-to-top visibility
+        if (window.scrollY > 50) {
+            if (navbar) navbar.classList.add('scrolled');
+            if (floatingBtn) floatingBtn.classList.add('visible');
         } else {
-            openSidebar();
+            if (navbar) navbar.classList.remove('scrolled');
+            if (floatingBtn) floatingBtn.classList.remove('visible');
         }
     });
 
-    // --- Navbar Scroll Effect ---
-    const navbar = document.querySelector("#nav");
-    const floatingBtn = document.querySelector('#floating');
+    // --- Active Nav Link Highlighting ---
+    const sections = document.querySelectorAll('section[id], header[id]');
+    const navLinks = document.querySelectorAll('.nav-link-custom');
 
-    // Initial state
-    if (window.scrollY <= 80) {
-        floatingBtn.style.display = 'none';
-    }
+    window.addEventListener('scroll', function () {
+        let currentSectionId = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop - 120;
+            const sectionHeight = section.offsetHeight;
+            if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+                currentSectionId = section.getAttribute('id');
+            }
+        });
 
-    window.addEventListener("scroll", function () {
-        if (window.scrollY > 80) {
-            // Show floating button
-            floatingBtn.style.display = 'block';
-            // Change navbar background
-            navbar.classList.remove('bg-transparent');
-            navbar.style.backgroundColor = "#202026";
-        } else {
-            // Hide floating button
-            floatingBtn.style.display = 'none';
-            // Reset navbar background
-            navbar.classList.add('bg-transparent');
-            navbar.style.backgroundColor = "transparent";
-        }
-    });
-
-    // --- Lightbox (Image View) ---
-    const viewSection = document.getElementById('view');
-    const viewCard = document.getElementById('view-card');
-    const previewImg = document.getElementById('preview');
-    const closeBtn = document.getElementById('times');
-    const certItems = document.querySelectorAll('.Certificate .cert-item .position-relative');
-    const block = document.querySelector('.block');
-
-    // Hide initially
-    viewSection.style.display = 'none';
-    viewCard.style.display = 'none';
-
-    certItems.forEach(item => {
-        item.addEventListener('click', function (e) {
-            e.preventDefault();
-            const img = this.querySelector('img');
-            const src = img.getAttribute('src');
-
-            previewImg.setAttribute('src', src);
-            viewSection.style.display = 'block';
-            viewCard.style.display = 'block';
-
-            // Animation simulation
-            setTimeout(() => {
-                block.style.transform = 'translateY(70px)';
-                document.body.style.overflow = 'hidden';
-            }, 10);
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${currentSectionId}`) {
+                link.classList.add('active');
+            }
         });
     });
 
-    closeBtn.addEventListener('click', function () {
-        block.style.transform = 'translateY(-70px)';
-        setTimeout(() => {
-            viewSection.style.display = 'none';
-            document.body.style.overflow = 'visible'; // Changed from 'auto' to match original 'visible' or 'auto'
-        }, 300); // Wait for transition
-    });
-
-    // --- Pagination / Filtering (MixItUp) ---
-    // Initialize MixItUp
-    // We use 'load' option to start with '.one' filter as per original logic ($(".two").hide())
-    if (document.querySelector('#mixit')) {
-        var mixer = mixitup('#mixit', {
+    // --- MixItUp Project Filter Initialization ---
+    const mixContainer = document.querySelector('#mixit-container');
+    if (mixContainer && typeof mixitup !== 'undefined') {
+        var mixer = mixitup(mixContainer, {
             selectors: {
-                target: '.mix' // The items to filter
-            },
-            load: {
-                filter: '.one' // Initial filter
+                target: '.project-item'
             },
             animation: {
-                duration: 300
+                duration: 400,
+                effects: 'fade translateY(30px) scale(0.95)',
+                easing: 'cubic-bezier(0.16, 1, 0.3, 1)'
             }
         });
     }
 
-    // Handle Active Page Class
-    const pageButtons = document.querySelectorAll(".list-page li p");
-    pageButtons.forEach(btn => {
-        btn.addEventListener("click", function () {
-            // Remove active class from all
-            pageButtons.forEach(b => b.classList.remove("active-page"));
-            // Add active class to clicked
-            this.classList.add("active-page");
+    // Filter Buttons Toggle Active State
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', function () {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
         });
     });
 
-    // --- Scroll Reveal ---
+    // --- Copy Contact Info to Clipboard ---
+    const copyElements = document.querySelectorAll('[data-copy]');
+    copyElements.forEach(el => {
+        el.addEventListener('click', function () {
+            const textToCopy = this.getAttribute('data-copy');
+            if (textToCopy) {
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    const originalText = this.innerHTML;
+                    this.innerHTML = `<i class="fas fa-check"></i> Copied!`;
+                    setTimeout(() => {
+                        this.innerHTML = originalText;
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy: ', err);
+                });
+            }
+        });
+    });
+
+    // --- ScrollReveal Staggered Animations ---
     if (typeof ScrollReveal !== 'undefined') {
         const sr = ScrollReveal({
-            distance: '30px',
-            duration: 1500,
+            distance: '40px',
+            duration: 1000,
+            easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
+            reset: false
         });
 
-        sr.reveal('.tags ul li', { origin: 'bottom', interval: 100, duration: 800 });
-        sr.reveal('.cert-item ,#certificate h2 ', { origin: 'bottom', interval: 200 });
-        sr.reveal('.edu-details, .break-line, .about-me h2, .about-me p, .about-content .col-md-12, .edu-left h2, .exp-right h2, #contact h2, #projects h2', { origin: 'bottom', interval: 200 });
-        sr.reveal('.contact-content , .contact .row .col-md-9 p , .about-img', { origin: 'left', interval: 200 });
-        sr.reveal('.contact-map , .contact .row .col-md-9 ul ', { origin: 'right', interval: 200 });
+        sr.reveal('.hero-content-col', { origin: 'left' });
+        sr.reveal('.hero-avatar-col', { origin: 'right', delay: 200 });
+        sr.reveal('.section-header', { origin: 'bottom' });
+        sr.reveal('.skill-card', { origin: 'bottom', interval: 120 });
+        sr.reveal('.timeline-item', { origin: 'left', interval: 180 });
+        sr.reveal('.project-item', { origin: 'bottom', interval: 140 });
+        sr.reveal('.contact-item-card', { origin: 'left', interval: 150 });
     }
 
-    // --- Loading Screen ---
-    const loadingScreen = document.getElementById("loading");
-    if (loadingScreen) {
-        // Fade out
-        loadingScreen.style.transition = "opacity 1s";
-        loadingScreen.style.opacity = "0";
+    // --- Loading Screen Dismissal ---
+    const loadingLayer = document.getElementById('loading');
+    if (loadingLayer) {
         setTimeout(() => {
-            loadingScreen.style.display = "none";
-            document.body.style.overflow = "auto";
-        }, 1000);
+            loadingLayer.style.opacity = '0';
+            loadingLayer.style.transition = 'opacity 0.6s ease-out';
+            setTimeout(() => {
+                loadingLayer.style.display = 'none';
+            }, 600);
+        }, 400);
     }
 });
